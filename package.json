@@ -1,0 +1,34 @@
+{
+  "name": "lodash-shrinking-demo",
+  "version": "1.0.0",
+  "description": "Smaller Lodash builds",
+  "main": "index.js",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.4.0",
+    "babel-plugin-lodash": "^3.2.11",
+    "babel-preset-es2015": "^6.22.0",
+    "lodash-webpack-plugin": "^0.11.2",
+    "rimraf": "^2.6.1",
+    "uglify-js": "^2.8.12",
+    "webpack": "^2.2.1"
+  },
+  "scripts": {
+    "build-all": "rimraf bundle* && npm run build && npm run build-shrinking",
+    "build": "npm run bundle && npm run uglify && npm run uglify-gzip",
+    "build-shrinking": "npm run bundle-shrinking && npm run uglify-shrinking && npm run uglify-gzip-shrinking",
+    "bundle": "webpack entry.js bundle.js",
+    "bundle-shrinking": "NODE_ENV=production webpack entry.js bundle-shrinking.js",
+    "uglify": "uglifyjs bundle.js --compress=warnings=false --mangle --output bundle.min.js",
+    "uglify-shrinking": "uglifyjs bundle-shrinking.js --compress=warnings=false --mangle --output bundle-shrinking.min.js",
+    "uglify-gzip": "gzip --keep bundle.min.js",
+    "uglify-gzip-shrinking": "gzip --keep bundle-shrinking.min.js",
+    "clean": "rimraf bundle*",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}
